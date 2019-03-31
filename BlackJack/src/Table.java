@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Table extends ArrayList<Card>{
+public class Table extends ArrayList<Card> {
 	private static final String[] RANKS =
 		{"ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"};
 
@@ -78,10 +78,10 @@ public class Table extends ArrayList<Card>{
 				}
 				System.out.println("The dealer's cards are" + dealer.getHand().getCards() + "\nwith a sum of " + dealer.getHand().cardSum() );
 				
-				if(comparedecks(dealer, newPlayer).equals("player")) {
+				if(newPlayer.getHand().compareTo(dealer)<0) {
 					System.out.println("Congratulations! You won and received your bet of " + chips + "!\n");
 					newPlayer.setChips(chips + newPlayer.getChips());
-				}else if(comparedecks(dealer, newPlayer).equals("dealer")) {
+				}else if(newPlayer.getHand().compareTo(dealer)>0) {
 					System.out.println("I'm sorry you lost! You lost your bet of " + chips + "!\n");
 					newPlayer.setChips(newPlayer.getChips() - chips );
 				}else {
@@ -99,22 +99,6 @@ public class Table extends ArrayList<Card>{
 		
 	}
 	
-	public String comparedecks(Player dealer, Player newPlayer) {
-		 int dealertotal = dealer.getHand().cardSum();
-		 int playertotal = newPlayer.getHand().cardSum();
-		 
-		 if(dealer.getHand().isBust()==false && dealertotal>playertotal) {
-			 return "dealer";
-		 }else if(newPlayer.getHand().isBust()==false && dealertotal<playertotal) {
-			 return "player";
-		 }else if(dealer.getHand().isBust()==true && newPlayer.getHand().isBust()==false) {
-			 return "player";
-		 }else if(dealer.getHand().isBust()==false && newPlayer.getHand().isBust()==true) {
-			 return "dealer";
-		 }else {
-			 return "tie";
-		 }
-	 }
 	
 	public static void main(String[] args) {
 		Table table = new Table();
