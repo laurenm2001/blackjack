@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hand{
+public class Hand implements Comparable<Player>{
 	private int currentCards;
 	
 	private static final String[] RANKS =
@@ -78,4 +78,21 @@ public class Hand{
 		 }
 		
 	}
+	 @Override
+		public int compareTo(Player dealer) {
+			 int dealertotal = dealer.getHand().cardSum();
+			 int playertotal = cardSum();
+			 
+			 if(dealer.getHand().isBust()==false && dealertotal>playertotal) {
+				 return 1;//dealer wins
+			 }else if(isBust()==false && dealertotal<playertotal) {
+				 return -1;
+			 }else if(dealer.getHand().isBust()==true && isBust()==false) {
+				 return -1;// player wins
+			 }else if(dealer.getHand().isBust()==false && isBust()==true) {
+				 return 1;
+			 }else {
+				 return 0;
+			 }
+		 }
 }
